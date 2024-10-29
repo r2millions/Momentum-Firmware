@@ -8,35 +8,48 @@
   - Non-exhaustive list of changes to help you fix your scripts:
     - `badusb`:
       - `setup()`: `mfr_name`, `prod_name`, `layout_path` parameters renamed to `mfrName`, `prodName`, `layoutPath`
-      - existing scripts using badusb will need to simply rename these
+      - effort required to update old scripts using badusb: very minimal
     - `dialog`:
       - removed, now replaced by `gui/dialog` and `gui/file_picker` (see below)
     - `event_loop`:
       - new module, allows timer functionality, callbacks and event-driven programming, used heavily alongside gpio and gui modules
     - `gpio`:
       - fully overhauled, now you `get()` pin instances and perform actions on them like `.init()`
-      - existing scripts using gpio will need some reworking
+      - now supports interrupts, callbacks and more cool things
+      - effort required to update old scripts using gpio: moderate
     - `gui`:
       - new module, fully overhauled, replaces dialog, keyboard, submenu, textbox modules
       - higher barrier to entry than older modules (requires usage of `event_loop` and `gui.viewDispatcher`), but much more flexible, powerful and easier to extend
       - includes all previously available js gui functionality (except `widget`), and also adds `gui/loading` and `gui/empty_screen` views
-      - existing scripts using gui in any way will need a huge amount of reworking
+      - currently `gui/file_picker` works different than other new view objects, it is a simple `.pickFile()` synchronous function, but this [may change later](https://github.com/flipperdevices/flipperzero-firmware/pull/3961#discussion_r1805579153)
+      - effort required to update old scripts using gui: extensive
     - `keyboard`:
       - removed, now replaced by `gui/text_input` and `gui/byte_input` (see above)
+    - `math`:
+      - `is_equal()` renamed to `isEqual()`
     - `storage`:
       - fully overhauled, now you `openFile()`s and perform actions on them like `.read()`
       - now supports many more operations including different open modes, directories and much more
       - `virtualInit()`, `virtualMount()`, `virtualQuit()` still work the same
-      - existing scripts using storage will need some reworking
+      - effort required to update old scripts using storage: moderate
     - `submenu`:
       - removed, now replaced by `gui/submenu` (see above)
     - `textbox`:
       - removed, now replace by `gui/text_box` (see above)
     - `widget`:
       - only gui functionality not ported to new gui module, remains unchanged for now but likely to be ported later on
-  - Added type definitions (typescript files for type checking in IDE, Flipper does not run typescript, and you code in javascript)
+    - globals:
+      - `__filepath` and `__dirpath` renamed to `__filename` and `__dirname` like in nodejs
+      - `to_string()` renamed and moved to number class as `n.toString()`, now supports optional base parameter
+      - `to_hex_string()` removed, now use `n.toString(16)`
+      - `parse_int()` renamed to `parseInt()`, now supports optional base parameter
+      - `to_upper_case()` and `to_lower_case()` renamed and moved to string class as `s.toUpperCase()` and `s.toLowerCase()`
+      - effort required to update old scripts using these: minimal
+  - Added type definitions (typescript files for type checking in IDE, Flipper does not run typescript)
   - Documentation is incomplete and deprecated, from now on you should refer to type definitions (`applications/system/js_app/types`), those will always be correct
   - Type definitions for extra modules we have that OFW doesn't will come later
+- GUI: Refactored TextInput illegal symbols (by @Willy-JL)
+  - If your app used `text_input_add_illegal_symbols(text_input)` it should change to `text_input_show_illegal_symbols(text_input, true)`
 
 ### Added:
 - Apps:
@@ -46,10 +59,12 @@
 - Sub-GHz:
   - Show satellites count with an icon (#215 by @m7i-org)
   - Add Bresser 3CH weather station protocol (#217 #245 by @m7i-org)
+  - Add Vauno-EN8822 weather station protocol (#262 by @m7i-org)
   - UL: Add Marantec24 protocol (static 24 bit) with add manually (by @xMasterX)
   - UL: Add GangQi protocol (static 34 bit) with button parsing and add manually (by @xMasterX & @Skorpionm)
   - UL: Add Hollarm protocol (static 42 bit) with button parsing and add manually (by @xMasterX & @Skorpionm)
   - UL: Add Hay21 protocol (dynamic 21 bit) with button parsing (by @xMasterX)
+  - UL: Add Keeloq Monarch full support, with add manually (by @ashphx)
   - UL: Princeton custom buttons support (by @xMasterX)
 - NFC:
   - OFW: MIFARE Classic Key Recovery Improvements (PR 3822 by @noproto)
@@ -61,9 +76,13 @@
   - OFW: H World Hotel Chain Room Key Parser and MFC keys (by @zinongli)
   - OFW: Parser for Tianjin Railway Transit (by @zinongli)
 - Infrared:
-  - Bluray/DVD Universal Remote (#250 by @jaylikesbunda)
+  - Bluray/DVD Universal Remote (#250 #264 by @jaylikesbunda)
   - Option to "Load from Library File" for Universal Remotes (#255 by @zxkmm)
 - Updater: New Yappy themed icon while updating (#253 by @the1anonlypr3 & @Kuronons & @nescap)
+- JS:
+  - New `i2c` module (#259 by @jamisonderek)
+  - New `spi` module (#272 by @jamisonderek)
+- RPC: Added ASCII event support (#284 by @Willy-JL)
 - BadKB:
   - OFW: Add linux/gnome badusb demo files (by @thomasnemer)
   - Add older qFlipper install demos for windows and macos (by @DXVVAY & @grugnoymeme)
@@ -71,6 +90,7 @@
 - OFW: Dolphin: Happy mode in Desktop settings (by @portasynthinca3)
 - OFW: CLI: Improvements part I, `neofetch` command (by @portasynthinca3), fix for lab.flipper.net (by @xMasterX)
 - GUI:
+  - ByteInput supports ASCII input (by @Willy-JL)
   - OFW: Add up and down button drawing functions to GUI elements (by @DerSkythe)
   - OFW: Extended icon draw function in Canvas (by @RebornedBrain)
 - OFW: RPC: Support 5V on GPIO control for ext. modules (by @gsurkov)
@@ -88,21 +108,27 @@
   - DTMF Dolphin: Add EAS tone support (by @JendrBendr)
   - NFC Playlist: Error screens for playlist already exists and item already in playlist, general improvements (by @acegoal07), refactor rename/new scene without thread (by @Willy-JL)
   - CLI-GUI Bridge: Fixes and improvements (by @ranchordo)
-  - Seader: Enable T=1 (by @bettse)
+  - Seader: Enable T=1, show error for timeout, fix wrong LRC logging, fix crash scanning NTAG215 with MFC option (by @bettse)
   - BLE Spam: Fix menu index callback (by @Willy-JL)
   - Solitaire: App rewrite, Added quick solve, New effects and sounds, Removed hacky canvas manipulation (by @doofy-dev)
   - CLI-GUI Bridge: Add more symbols to keyboard (#222 by @Willy-JL)
   - UL: Sub-GHz Bruteforcer: Add new protocols for existing dump option (by @xMasterX), use FW functions for top buttons (by @DerSkythe)
   - UL: NRF24 Apps: Use string library compatible with OFW SDK (by @xMasterX)
+  - UL: W5500 Ethernet: Various fixes and improvements (by @xMasterX)
   - OFW: SPI Mem Manager: Fixed UI rendering bug related to line breaks (by @portasynthinca3)
   - OFW: USB/BT Remote: Mouse clicker option to click as fast as possible (by @sumukhj1219)
 - CLI: Print plugin name on load fail (by @Willy-JL)
 - NFC:
+  - NDEF Parser:
+    - Mifare Classic support (#265 by @luu176), protocol-agnostic rewrite and more improvements (#265 by @Willy-JL)
+    - SLIX support, parse even with TLV terminator omitted, parse empty NDEF TLVs (#278 by @Willy-JL)
+    - Decoding of URL-encoded URI characters (#267 by @jaylikesbunda)
+    - SmartPoster record support (#275 by @Willy-JL)
+    - Enable parsing NTAG I2C Plus 1k and 2k chips too (#237 by @RocketGod-git)
   - Added 6 new Mifare Classic keys from Bulgaria Hotel (#216 by @z3r0l1nk)
-  - NDEF parser supports NTAG I2C Plus 1k and 2k chips too (by @RocketGod-git)
   - UL: Add iq aparts hotel key (by @xMasterX)
   - OFW/UL: Rename 'Detect Reader' to 'Extract MFC Keys' (by @bettse & @xMasterX)
-  - OFW: Plantain parser improvements (by @assasinfil)
+  - OFW: Plantain parser improvements (by @assasinfil) and fixes (by @mxcdoam)
   - OFW: Moscow social card parser (by @assasinfil)
   - OFW: Fixes and improvements to iso14443_4a listener and poller (by @RebornedBrain)
   - OFW: Update BART station codes in Clipper plugin (by @ted-logan)
@@ -152,6 +178,7 @@
   - Fallback SD format prompt when storage settings is unavailable (by @Willy-JL)
   - OFW: Fix folder rename fails (by @portasynthinca3)
 - About: Fix BLE stack version string (by @Willy-JL)
+- RPC: Fixed apps not updating and staying at 100% (by @Willy-JL)
 - OFW: Loader: Warn about missing SD card for main apps (by @Willy-JL)
 - NFC:
   - UL: Read Ultralight block by block (by @mishamyte)
@@ -166,6 +193,7 @@
   - OFW: Prevent idle priority threads from potentially starving the FreeRTOS idle task (by @CookiePLMonster)
   - OFW: Wait for RNG ready state and no errors before sampling (by @n1kolasM)
   - OFW: A Lot of Fixes (by @skotopes)
+- OFW: CLI: Add warning about stealth mode in vibro command (by @ivanbarsukov)
 - OFW: Debug: Use proper hook for handle_exit in flipperapps (by @skotopes)
 - OFW: API: Fix kerel typo in documentation (by @EntranceJew)
 
