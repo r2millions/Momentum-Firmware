@@ -55,6 +55,15 @@
 - Apps:
   - NFC: Cyborg Detector (by @RocketGod-git)
   - Sub-GHz: Radio Scanner (by @RocketGod-git)
+  - GPIO: FlipperHTTP app suite (by @jblanked):
+    - FlipLibrary
+    - FlipSocial
+    - FlipStore
+    - FlipTrader
+    - FlipWeather
+    - FlipWiFi
+    - Web Crawler
+  - Tools: uPython (by @ofabel)
   - Games: Umpire Indicator (by @RocketGod-git)
 - Sub-GHz:
   - Show satellites count with an icon (#215 by @m7i-org)
@@ -116,11 +125,11 @@
   - MFKey: Added Static Encrypted Nested key recovery, Added NFC app support, Dropped FlipperNested support (by @noproto)
   - WAV Player: Better fix for unresponsiveness, handle thread exit signal (by @CookiePLMonster)
   - Laser Tag: External Infrared board support, crash fixes (by @RocketGod-git), RFID support for ammo reload, thread leak fix (by @jamisonderek)
-  - ESP Flasher: Update blackmagic bin with WiFi Logs (by @DrZlo13), support more board types (by @xMasterX)
+  - ESP Flasher: Add FlipperHTTP firmware (by @jblanked), update blackmagic bin with WiFi Logs (by @DrZlo13), support more board types (by @xMasterX)
   - Picopass: File loading improvements and fixes (by @bettse), force ISO15693 1OutOf4 mode (by @aaronjamt)
   - Quac!: External IR board support (by @daniilty), import all IR from file, iButton support, code improvements (by @rdefeo)
   - DTMF Dolphin: Add EAS tone support (by @JendrBendr)
-  - NFC Playlist: Error screens for playlist already exists and item already in playlist, general improvements (by @acegoal07), refactor rename/new scene without thread (by @Willy-JL)
+  - NFC Playlist: Better error handling with many new error screens, general improvements (by @acegoal07), refactor rename/new scene without thread (by @Willy-JL)
   - CLI-GUI Bridge: Fixes and improvements (by @ranchordo)
   - Seader: Enable T=1, show error for timeout, fix wrong LRC logging, fix crash scanning NTAG215 with MFC option (by @bettse)
   - BLE Spam: Fix menu index callback (by @Willy-JL)
@@ -223,3 +232,5 @@
 ### Removed:
 - Apps:
   - Mifare Nested: Superseded by NFC app after OFW PR 3822 (MIFARE Classic Key Recovery Improvements)
+  - ESP Flasher:
+    - Removed Airtag Scanner and ESP32-S2 Wardriver due to low user interest and to make space for Ghost ESP
