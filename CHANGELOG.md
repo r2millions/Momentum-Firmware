@@ -103,7 +103,9 @@
   - Added typedocs for all extra JS modules in Momentum (by @Willy-JL)
 - RPC: Added ASCII event support (#284 by @Willy-JL)
 - FBT/SDK: New app flag UnloadAssetPacks to free RAM in heavy apps like NFC, MFKey, uPython (#260 by @Willy-JL)
-- OFW: Settings: Clock editing & Alarm function (目覚め時計) (by @skotopes)
+- Settings:
+  - OFW: Clock editing & Alarm function (目覚め時計) (by @skotopes)
+  - Add warnings for some settings you shouldn't touch like Debug, Sleep Method, Heap Trace (#296 by @Willy-JL)
 - BadKB:
   - OFW: Add linux/gnome badusb demo files (by @thomasnemer)
   - Add older qFlipper install demos for windows and macos (by @DXVVAY & @grugnoymeme)
@@ -150,6 +152,7 @@
     - Decoding of URL-encoded URI characters (#267 by @jaylikesbunda)
     - SmartPoster record support (#275 by @Willy-JL)
     - Enable parsing NTAG I2C Plus 1k and 2k chips too (#237 by @RocketGod-git)
+  - NFC: Updated MFC dict, +100 keys from RRG proxmark3, +17 keys from Mifare Classic Tool
   - Added 6 new Mifare Classic keys from Bulgaria Hotel (#216 by @z3r0l1nk)
   - UL: Add iq aparts hotel key (by @xMasterX)
   - OFW/UL: Rename 'Detect Reader' to 'Extract MFC Keys' (by @bettse & @xMasterX)
@@ -178,7 +181,9 @@
   - Move more commands as plugins on SD, refactor plugin wrapper (#276 by @Willy-JL)
 - FBT: Optimize icons blob, scrub unused icons (#291 by @Willy-JL)
 - OFW: BadKB: Improve ChromeOS and GNOME demo scripts (by @kowalski7cc)
-- OFW: GUI: Change dialog_ex text ownership model (by @skotopes)
+- GUI:
+  - OFW: Change dialog_ex text ownership model (by @skotopes)
+  - Improve some error messages to be more clear, like Sub-GHz region missing and Main Menu .fap file missing (#296 by @Willy-JL)
 - OFW: CCID: App changes and improvements (by @kidbomb)
 - OFW: API: Exposed `view_dispatcher_get_event_loop` (by @CookiePLMonster)
 - Furi:
@@ -199,6 +204,7 @@
   - OFW: Fix detection of GProx II cards and false detection of other cards (by @Astrrra)
   - OFW: Fix Guard GProxII False Positive and 36-bit Parsing (by @zinongli)
   - OFW: GProxII Fix Writing and Rendering Conflict (by @zinongli)
+- Asset Packer: Fix font terminator causing freezes/crashes, like in Marauder AP scan/list (#295 by @Willy-JL)
 - Desktop:
   - Fallback Poweroff prompt when power settings is unavailable (by @Willy-JL)
 - Sub-GHz:
