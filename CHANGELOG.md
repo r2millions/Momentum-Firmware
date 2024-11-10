@@ -103,7 +103,9 @@
   - Added typedocs for all extra JS modules in Momentum (by @Willy-JL)
 - RPC: Added ASCII event support (#284 by @Willy-JL)
 - FBT/SDK: New app flag UnloadAssetPacks to free RAM in heavy apps like NFC, MFKey, uPython (#260 by @Willy-JL)
-- OFW: Settings: Clock editing & Alarm function (目覚め時計) (by @skotopes)
+- Settings:
+  - OFW: Clock editing & Alarm function (目覚め時計) (by @skotopes)
+  - Add warnings for some settings you shouldn't touch like Debug, Sleep Method, Heap Trace (#296 by @Willy-JL)
 - BadKB:
   - OFW: Add linux/gnome badusb demo files (by @thomasnemer)
   - Add older qFlipper install demos for windows and macos (by @DXVVAY & @grugnoymeme)
@@ -135,7 +137,7 @@
   - Seader: Enable T=1, show error for timeout, fix wrong LRC logging, fix crash scanning NTAG215 with MFC option (by @bettse)
   - BLE Spam: Fix menu index callback (by @Willy-JL)
   - Solitaire: App rewrite, Added quick solve, New effects and sounds, Removed hacky canvas manipulation (by @doofy-dev)
-  - Flappy Bird: Yappy Bird mode, highscore system (by @jaylikesbunda & @the1anonlypr3)
+  - Flappy Bird: Yappy Bird and Yappy Ghost characters, highscore system and bugfixes (by @jaylikesbunda & @the1anonlypr3)
   - CLI-GUI Bridge: Add more symbols to keyboard (#222 by @Willy-JL)
   - NRF24 Batch: Add Aeropac SN board txt file (by @vad7)
   - UL: Sub-GHz Bruteforcer: Add new protocols for existing dump option (by @xMasterX), use FW functions for top buttons (by @DerSkythe)
@@ -150,6 +152,7 @@
     - Decoding of URL-encoded URI characters (#267 by @jaylikesbunda)
     - SmartPoster record support (#275 by @Willy-JL)
     - Enable parsing NTAG I2C Plus 1k and 2k chips too (#237 by @RocketGod-git)
+  - NFC: Updated MFC dict, +100 keys from RRG proxmark3, +17 keys from Mifare Classic Tool
   - Added 6 new Mifare Classic keys from Bulgaria Hotel (#216 by @z3r0l1nk)
   - UL: Add iq aparts hotel key (by @xMasterX)
   - OFW/UL: Rename 'Detect Reader' to 'Extract MFC Keys' (by @bettse & @xMasterX)
@@ -178,7 +181,9 @@
   - Move more commands as plugins on SD, refactor plugin wrapper (#276 by @Willy-JL)
 - FBT: Optimize icons blob, scrub unused icons (#291 by @Willy-JL)
 - OFW: BadKB: Improve ChromeOS and GNOME demo scripts (by @kowalski7cc)
-- OFW: GUI: Change dialog_ex text ownership model (by @skotopes)
+- GUI:
+  - OFW: Change dialog_ex text ownership model (by @skotopes)
+  - Improve some error messages to be more clear, like Sub-GHz region missing and Main Menu .fap file missing (#296 by @Willy-JL)
 - OFW: CCID: App changes and improvements (by @kidbomb)
 - OFW: API: Exposed `view_dispatcher_get_event_loop` (by @CookiePLMonster)
 - Furi:
@@ -199,6 +204,7 @@
   - OFW: Fix detection of GProx II cards and false detection of other cards (by @Astrrra)
   - OFW: Fix Guard GProxII False Positive and 36-bit Parsing (by @zinongli)
   - OFW: GProxII Fix Writing and Rendering Conflict (by @zinongli)
+- Asset Packer: Fix font terminator causing freezes/crashes, like in Marauder AP scan/list (#295 by @Willy-JL)
 - Desktop:
   - Fallback Poweroff prompt when power settings is unavailable (by @Willy-JL)
 - Sub-GHz:
@@ -235,3 +241,4 @@
   - Mifare Nested: Superseded by NFC app after OFW PR 3822 (MIFARE Classic Key Recovery Improvements)
   - ESP Flasher:
     - Removed Airtag Scanner and ESP32-S2 Wardriver due to low user interest and to make space for Ghost ESP
+- API: Removed `furi_hal_bt_reverse_mac_addr()` and implemented in individual apps instead
