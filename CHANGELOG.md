@@ -2,6 +2,8 @@
 - Apps:
   - Games: Pinball0 (by @rdefeo)
   - NFC: Metroflip (by @luu176)
+- UL: Sub-GHz: Jolly Motors support with add manually (by @pkooiman & @xMasterX)
+- OFW: Add VCP break support (by @gsurkov)
 
 ### Updated:
 - Apps:
@@ -20,10 +22,17 @@
   - WebCrawler: Improved progress display, added connectivity check on startup (by @jamisonderek)
   - UL: NFC Magic: Added possibility to write 7b MFC to Gen1 tags (by @mishamyte)
   - UL: Fixed apps for firmware USB CDC callback changes (by @xMasterX)
+- NFC:
+  - OFW: Replace mf_classic_dict.nfc with Proxmark3 version (by @onovy)
+  - OFW: More station IDs for Clipper plugin (by @ted-logan)
+- OFW: Infrared: Add IR command for NAD DR2 D7050 D3020 (by @nikos9742)
 
 ### Fixed:
 - Desktop: Fixed Wardriving animation design (by @Davim09)
-- OFW: GPIO: Merged gsurkov/vcp_break_support branch for usb uart bridge (WIP!!!)
+- OFW: GPIO: Fix USB UART Bridge Crash by increasing system stack size (by @Astrrra)
+- NFC:
+  - OFW: Plantain parser Last payment amount fix (by @mxcdoam)
+  - OFW: Fix typo for mf_classic_key_cahce_get_next_key() function (by @luu176)
 
 ### Removed:
 - Nothing
